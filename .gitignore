@@ -1,0 +1,15 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Diretório de build
+build/
+
+# Dependências locais
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
