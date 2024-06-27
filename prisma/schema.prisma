@@ -21,6 +21,7 @@ model Client {
   createdAt   DateTime @updatedAt @map("created_at")
 
   addresses Address[] //one client has many addresses
+  orders    Order[]
 
   @@map("clients")
 }
@@ -60,4 +61,13 @@ model Stock {
   product       Product @relation(fields: [productId], references: [productId])
 
   @@map("stocks")
+}
+
+model Order {
+  orderId     String  @id @default(uuid()) @map("order_id")
+  orderStatus String  @map("order_status")
+  clientId    String? @map("client_id")
+  Client      Client? @relation(fields: [clientId], references: [clientId])
+
+  @@map("orders")
 }
