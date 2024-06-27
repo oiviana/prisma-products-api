@@ -49,25 +49,43 @@ model Product {
   productPrice       Decimal  @map("product_price") @db.Decimal(10, 2)
   createdAt          DateTime @updatedAt @map("created_at")
 
-  stock Stock?
+  stock      Stock?
+  orderItems OrderItem[]
 
   @@map("products")
 }
 
 model Stock {
-  stockId       String  @id @default(uuid()) @map("stock_id")
-  stockQuantity Int     @map("stock_quantity")
-  productId     String  @unique @map("product_id")
-  product       Product @relation(fields: [productId], references: [productId])
+  stockId       String   @id @default(uuid()) @map("stock_id")
+  stockQuantity Int      @map("stock_quantity")
+  productId     String   @unique @map("product_id")
+  product       Product  @relation(fields: [productId], references: [productId])
+  createdAt     DateTime @updatedAt @map("created_at")
 
   @@map("stocks")
 }
 
 model Order {
-  orderId     String  @id @default(uuid()) @map("order_id")
-  orderStatus String  @map("order_status")
-  clientId    String? @map("client_id")
-  Client      Client? @relation(fields: [clientId], references: [clientId])
+  orderId     String   @id @default(uuid()) @map("order_id")
+  orderStatus String   @map("order_status")
+  clientId    String?  @map("client_id")
+  Client      Client?  @relation(fields: [clientId], references: [clientId])
+  createdAt   DateTime @updatedAt @map("created_at")
+
+  orderItems OrderItem[]
 
   @@map("orders")
+}
+
+model OrderItem {
+  orderItemId    String  @id @default(uuid()) @map("order_item_id")
+  itemQuantity   Int     @map("item_quantity")
+  itemTotalPrice Decimal @map("item_total_price") @db.Decimal(10, 2)
+  orderId        String  @map("order_id")
+  productId      String  @map("product_id")
+
+  order   Order   @relation(fields: [orderId], references: [orderId])
+  product Product @relation(fields: [productId], references: [productId])
+
+  @@map("order_items")
 }
