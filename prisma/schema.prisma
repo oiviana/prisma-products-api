@@ -12,3 +12,52 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Client {
+  clientId    String   @id @default(uuid()) @map("client_id")
+  clientCnpj  String   @map("client_cnpj")
+  clientName  String   @map("client_name")
+  clientEmail String   @map("client_email")
+  createdAt   DateTime @updatedAt @map("created_at")
+
+  addresses Address[] //one client has many addresses
+
+  @@map("clients")
+}
+
+model Address {
+  addressId  String   @id @default(uuid()) @map("address_id")
+  street     String
+  number     String
+  postalCode String   @map("postal_code")
+  city       String
+  state      String
+  createdAt  DateTime @updatedAt @map("created_at")
+
+  clientId String @map("client_id") //client foreing key
+  client   Client @relation(fields: [clientId], references: [clientId]) //client relation tables
+
+  @@map("addresses")
+}
+
+model Product {
+  productId          String   @id @default(uuid()) @map("product_id")
+  productName        String   @map("product_name")
+  productDescription String   @map("product_description")
+  productCategory    String   @map("product_category")
+  productPrice       Decimal  @map("product_price") @db.Decimal(10, 2)
+  createdAt          DateTime @updatedAt @map("created_at")
+
+  stock Stock?
+
+  @@map("products")
+}
+
+model Stock {
+  stockId       String  @id @default(uuid()) @map("stock_id")
+  stockQuantity Int     @map("stock_quantity")
+  productId     String  @unique @map("product_id")
+  product       Product @relation(fields: [productId], references: [productId])
+
+  @@map("stocks")
+}
