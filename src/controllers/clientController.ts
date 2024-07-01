@@ -49,7 +49,7 @@ export const findClient = async (req: Request, res: Response) => {
 
     res.json(client);
   } catch (error) {
-    console.error('Erro ao buscar cliente:', error);
+    console.error("Erro ao buscar cliente:", error);
     res.status(500).json({ error: `Erro ao buscar cliente: ${error}` });
   } finally {
     await prisma.$disconnect();
