@@ -17,7 +17,7 @@ model Client {
   clientId    String   @id @default(uuid()) @map("client_id")
   clientCnpj  String   @map("client_cnpj")
   clientName  String   @map("client_name")
-  clientEmail String   @map("client_email")
+  clientEmail String   @unique @map("client_email")
   createdAt   DateTime @updatedAt @map("created_at")
 
   addresses Address[] //one client has many addresses
