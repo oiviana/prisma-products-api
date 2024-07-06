@@ -43,7 +43,7 @@ model Address {
 
 model Product {
   productId          String   @id @default(uuid()) @map("product_id")
-  productName        String   @map("product_name")
+  productName        String   @unique @map("product_name")
   productDescription String   @map("product_description")
   productCategory    String   @map("product_category")
   productPrice       Decimal  @map("product_price") @db.Decimal(10, 2)
