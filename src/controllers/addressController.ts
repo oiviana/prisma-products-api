@@ -3,7 +3,6 @@ import { Request, Response } from "express";
 
 const prisma = new PrismaClient();
 
-
 // GET
 
 export const listAddresses = async (_req: Request, res: Response) => {
@@ -16,7 +15,6 @@ export const listAddresses = async (_req: Request, res: Response) => {
     await prisma.$disconnect();
   }
 };
-
 
 // POST
 
@@ -61,7 +59,7 @@ export const deleteAddress = async (req: Request, res: Response) => {
   try {
     const address = await prisma.address.findUnique({
       where: {
-       addressId: id
+        addressId: id,
       },
     });
 
@@ -86,7 +84,7 @@ export const deleteAddress = async (req: Request, res: Response) => {
 
 export const updateAddress = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { street, number, postalCode, city, state} = req.body;
+  const { street, number, postalCode, city, state } = req.body;
 
   try {
     // Verifica se o endereço existe
@@ -95,11 +93,11 @@ export const updateAddress = async (req: Request, res: Response) => {
     });
 
     if (!addressExists) {
-      return res.status(404).json({ error: 'Endereço não encontrado' });
+      return res.status(404).json({ error: "Endereço não encontrado" });
     }
 
     // Atualiza o endereço
-    const updatedAddress = await prisma.address.update({
+    await prisma.address.update({
       where: { addressId: id },
       data: {
         street,
@@ -112,7 +110,7 @@ export const updateAddress = async (req: Request, res: Response) => {
 
     res.json("Endereço atualizado!");
   } catch (error) {
-    console.error('Erro ao atualizar endereço:', error);
+    console.error("Erro ao atualizar endereço:", error);
     res.status(500).json({ error: `Erro ao atualizar endereço: ${error}` });
   } finally {
     await prisma.$disconnect();
