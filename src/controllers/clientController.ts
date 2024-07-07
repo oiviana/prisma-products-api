@@ -1,11 +1,18 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
+import z from "zod";
 
 const prisma = new PrismaClient();
 
+const clientSchema = z.object({
+  clientCnpj: z.string(),
+  clientName: z.string(),
+  clientEmail: z.string(),
+});
+
 // POST
 export const createClient = async (req: Request, res: Response) => {
-  const { clientCnpj, clientName, clientEmail } = req.body;
+  const { clientCnpj, clientName, clientEmail } = clientSchema.parse(req.body);
   try {
     await prisma.client.create({
       data: {
@@ -58,8 +65,39 @@ export const findClient = async (req: Request, res: Response) => {
   }
 };
 
-// DELETE
+// PUT
+export const updateClient = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { clientCnpj, clientName, clientEmail } = clientSchema.parse(req.body);
 
+  try {
+    const clientExists = await prisma.client.findUnique({
+      where: { clientId: id },
+    });
+
+    if (!clientExists) {
+      return res.status(404).json({ error: "cliente não encontrado" });
+    }
+
+    await prisma.client.update({
+      where: { clientId: id },
+      data: {
+        clientCnpj,
+        clientName,
+        clientEmail,
+      },
+    });
+
+    res.json("Cliente atualizado!");
+  } catch (error) {
+    console.error("Erro ao atualizar cliente:", error);
+    res.status(500).json({ error: `Erro ao atualizar cliente: ${error}` });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+// DELETE
 export const deleteClient = async (req: Request, res: Response) => {
   const { id } = req.params;
 
