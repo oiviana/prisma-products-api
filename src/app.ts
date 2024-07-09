@@ -4,6 +4,7 @@ import addressRoutes from './routes/addressRoutes';
 import productRoutes from './routes/productRoutes';
 import { Request, Response, ErrorRequestHandler, NextFunction } from "express";
 import helmet from 'helmet';
+import stockRoutes from './routes/stockRoutes';
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(helmet());
 app.use('/clients', clientRoutes);
 app.use('/address', addressRoutes);
 app.use('/product', productRoutes)
+app.use('/stock', stockRoutes)
 
 app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
     if (err instanceof Error) {
