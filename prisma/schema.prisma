@@ -46,7 +46,7 @@ model Product {
   productName        String   @unique @map("product_name")
   productDescription String   @map("product_description")
   productCategory    String   @map("product_category")
-  productPrice       Decimal  @map("product_price") @db.Decimal(10, 2)
+  productPrice       Int      @map("product_price")
   createdAt          DateTime @updatedAt @map("created_at")
 
   stock      Stock?
