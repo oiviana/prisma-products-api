@@ -108,3 +108,35 @@ export const updateProduct = async (req: Request, res: Response) => {
     await prisma.$disconnect();
   }
 };
+
+// DELETE
+export const deleteProduct = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const product = await prisma.product.findUnique({
+      where: {
+        productId: id,
+      },
+    });
+
+    if (!product) {
+      return res.status(404).json({ error: "Produto não encontrado" });
+    }
+    
+    await prisma.stock.delete({
+      where: { productId: id },
+    });
+
+    await prisma.product.delete({
+      where: { productId: id },
+    });
+
+    res.json("Produto deletado");
+  } catch (error) {
+    console.error("Erro ao deletar produto:", error);
+    res.status(500).json({ error: `Erro ao deletar produto: ${error}` });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
