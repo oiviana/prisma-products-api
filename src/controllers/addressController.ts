@@ -4,7 +4,6 @@ import { Request, Response } from "express";
 const prisma = new PrismaClient();
 
 // GET
-
 export const listAddresses = async (_req: Request, res: Response) => {
   try {
     const addresses = await prisma.address.findMany();
@@ -17,7 +16,6 @@ export const listAddresses = async (_req: Request, res: Response) => {
 };
 
 // POST
-
 export const createAddress = async (req: Request, res: Response) => {
   const { street, number, postalCode, city, state, clientId } = req.body;
   try {
@@ -52,7 +50,6 @@ export const createAddress = async (req: Request, res: Response) => {
 };
 
 // DELETE
-
 export const deleteAddress = async (req: Request, res: Response) => {
   const { id } = req.params;
 
@@ -81,7 +78,6 @@ export const deleteAddress = async (req: Request, res: Response) => {
 };
 
 // PUT
-
 export const updateAddress = async (req: Request, res: Response) => {
   const { id } = req.params;
   const { street, number, postalCode, city, state } = req.body;
