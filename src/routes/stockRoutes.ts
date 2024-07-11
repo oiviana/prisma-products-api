@@ -1,5 +1,5 @@
 import express from "express";
-import { createStock, listStock } from "../controllers/stockController";
+import { createStock, listStock, updateStock } from "../controllers/stockController";
 
 const stockRoutes = express.Router();
 
@@ -9,7 +9,7 @@ stockRoutes.get("/list-all", listStock )
 
 // clientRoutes.get("/find-client/:id", findClient )
 
-// clientRoutes.patch("/update/:id", updateClient)
+stockRoutes.patch("/update", updateStock)
 
 // clientRoutes.delete("/delete/:id", deleteClient )
 
