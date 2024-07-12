@@ -20,7 +20,7 @@ const orderSchema = z.object({
 });
 
 // POST
-export const createClient = async (req: Request, res: Response) => {
+export const createOrder = async (req: Request, res: Response) => {
   const { orderStatus, clientId, orderItems } = orderSchema.parse(req.body);
   try {
     await prisma.order.create({
