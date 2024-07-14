@@ -67,6 +67,7 @@ model Stock {
 
 model Order {
   orderId     String   @id @default(uuid()) @map("order_id")
+  orderNumber String   @unique @map("order_number")
   orderStatus String   @map("order_status")
   clientId    String?  @map("client_id")
   Client      Client?  @relation(fields: [clientId], references: [clientId])
