@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import z from "zod";
+import { updateStockQuantityforOrders } from "./stockController";
 
 const prisma = new PrismaClient();
 
@@ -11,7 +12,9 @@ const orderItemSchema = z.object({
   orderId: z.string().optional(),
 });
 
-const ItemsSchema = z.array(orderItemSchema);
+const ItemsSchema = z.object({
+  orderItems: z.array(orderItemSchema)
+});
 
 const orderSchema = z.object({
   orderStatus: z.string(),
@@ -47,7 +50,7 @@ export const createOrderItems = async (req: Request, res: Response) => {
   const { id } = req.params;
   const items = ItemsSchema.parse(req.body);
 
-  const itemsWithOrderId = items.map((item) => ({
+  const itemsWithOrderId = items.orderItems.map((item) => ({
     ...item,
     orderId: id,
   }));
@@ -63,13 +66,37 @@ export const createOrderItems = async (req: Request, res: Response) => {
     if(!hasOrder){
       return  res.status(404).json("Não há pedido com esse id");
     }
-    // Primeiro, cria a ordem
-    await prisma.orderItem.createMany({
-      data: itemsWithOrderId,
+
+    const itemsWithTotalPrice = await Promise.all(itemsWithOrderId.map(async (item) => {
+      const { productId, itemQuantity } = item;
+    
+      const product = await prisma.product.findUnique({
+        where: {
+          productId,
+        },
+        select: { productPrice: true },
+      });
+    
+      if (!product) {
+        throw new Error(`Produto com ID ${productId} não encontrado`);
+      }
+  
+      const orderItemTotalPrice = product.productPrice * itemQuantity;
+    
+      return {
+        ...item,
+        itemTotalPrice: orderItemTotalPrice
+      };
+    }));
+
+
+    const orderItems = await prisma.orderItem.createMany({
+      data: itemsWithTotalPrice,
     });
 
-    // Retorna a ordem criada e os itens do pedido
-    res.status(201).json("Itens adicionados");
+    updateStockQuantityforOrders(req, res, itemsWithTotalPrice)
+
+    res.status(201).json(orderItems);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: `Erro ao cadastrar: ${error}` });
@@ -79,6 +106,17 @@ export const createOrderItems = async (req: Request, res: Response) => {
 };
 
 // GET
+export const listOrders = async (_req: Request, res: Response) => {
+  try {
+    const orders = await prisma.order.findMany();
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ error: `Erro ao listar: ${error}` });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
 export const findOrderWithItems = async (req: Request, res: Response) => {
   const { id } = req.params;
 

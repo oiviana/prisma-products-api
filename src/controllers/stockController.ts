@@ -1,13 +1,19 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import { z } from "zod";
-
 const prisma = new PrismaClient();
 
 const stockSchema = z.object({
   productId: z.string(),
   stockQuantity: z.number(),
 });
+
+type orderItems = {
+  orderId: string;
+  productId: string;
+  itemQuantity: number;
+  itemTotalPrice: number;
+}[]
 
 // POST
 export const createStock = async (req: Request, res: Response) => {
@@ -121,3 +127,45 @@ export const updateStock = async (req: Request, res: Response) => {
     await prisma.$disconnect();
   }
 };
+
+// PATCH
+export const updateStockQuantityforOrders = async (req: Request, res: Response, orderItems:orderItems) => {
+  try {
+    for (const item of orderItems) {
+      const { productId, itemQuantity } = item;
+
+      const stock = await prisma.stock.findUnique({
+        where: {
+          productId: productId,
+        },
+      });
+
+      if (!stock) {
+        console.error(`Estoque para o produto com id ${productId} não encontrado`);
+        continue; 
+      }
+
+      const updatedStockQuantity = stock.stockQuantity - itemQuantity
+
+      if (updatedStockQuantity < 0) {
+        console.error(`Estoque insuficiente para o produto com id: ${productId}`);
+        continue;
+      }
+
+      await prisma.stock.update({
+        where: {
+          productId: productId,
+        },
+        data: {
+          stockQuantity: updatedStockQuantity,
+        },
+      });
+    }
+    res.send("Estoque atualizado com sucesso!");
+    
+  } catch (error) {
+    console.error(`Erro ao atualizar o estoque: ${error}`);
+    res.status(500).json({ error: "Erro ao atualizar o estoque" });
+  }
+};
+
