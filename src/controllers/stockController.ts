@@ -161,11 +161,9 @@ export const updateStockQuantityforOrders = async (req: Request, res: Response, 
         },
       });
     }
-    res.send("Estoque atualizado com sucesso!");
     
   } catch (error) {
     console.error(`Erro ao atualizar o estoque: ${error}`);
-    res.status(500).json({ error: "Erro ao atualizar o estoque" });
   }
 };
 
