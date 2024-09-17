@@ -71,7 +71,7 @@ export const findStock = async (req: Request, res: Response) => {
   try {
     const stock = await prisma.stock.findUnique({
       where: {
-        productId: id,
+        stockId: id,
       },
       include: {
         product: {
