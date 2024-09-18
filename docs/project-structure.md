@@ -92,3 +92,5 @@ POST http://localhost:3333/order/create-items/:order-id - Add items to the order
   ]
 }
 ```
+
+## Folder structure
