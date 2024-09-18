@@ -94,3 +94,6 @@ POST http://localhost:3333/order/create-items/:order-id - Add items to the order
 ```
 
 ## Folder structure
+The objective of this session is to explain the structure and functionality of some folders and files essential to the project
+
+### ./prisma
