@@ -59,3 +59,36 @@ GET http://localhost:3333/clients/list-all - Return all clients/costumers
     }
 ]
 ```
+
+### Order endpoints
+
+```http
+POST http://localhost:3333/clients/create - Create a new order
+```
+```json
+{
+  "orderNumber": "4430540",  
+  "orderStatus": "Pending",
+  "clientId": "acaadce5-1cf3-4286-b341-d7b2691d0868"
+}
+```
+
+```http
+POST http://localhost:3333/order/create-items/:order-id - Add items to the order
+```
+```json
+{
+  "orderItems": [
+    {
+      "productId": "84083a54-80c4-41ed-8f73-cf591f13d7bd",
+      "itemQuantity": 2,
+      "itemTotalPrice": 0
+    },
+    {
+      "productId": "e80a06b6-8124-4ebb-89af-e60b22fc43e2",
+      "itemQuantity": 4,
+      "itemTotalPrice": 0
+    }
+  ]
+}
+```
