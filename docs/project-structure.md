@@ -21,3 +21,9 @@ This project uses a relational database, which is ideal for this type of invento
 - **Client < Order:** each customer can have more than one orders
 - **Order < OrderItem:** each order can have more than one order items
 - **OrderItem - Product:** each order item is linked to a product
+
+## API Endpoints
+Here we have some example endpoints that are used in the project. The structure remains basically the same for all tables, only the fields change.
+
+```http
+POST http://localhost:3333/clients/create - Create a new client/costumer
