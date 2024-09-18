@@ -27,3 +27,10 @@ Here we have some example endpoints that are used in the project. The structure 
 
 ```http
 POST http://localhost:3333/clients/create - Create a new client/costumer
+```
+```json
+{
+  "clientCnpj": "33333034345054",
+  "clientName": "Test Costumer",
+  "clientEmail": "test@example.com"
+}
