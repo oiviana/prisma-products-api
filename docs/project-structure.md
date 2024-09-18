@@ -37,6 +37,7 @@ POST http://localhost:3333/clients/create - Create a new client/costumer
   "clientEmail": "test@example.com"
 }
 ```
+
 ```http
 GET http://localhost:3333/clients/list-all - Return all clients/costumers
 ```
