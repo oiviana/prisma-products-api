@@ -25,6 +25,8 @@ This project uses a relational database, which is ideal for this type of invento
 ## API Endpoints
 Here we have some example endpoints that are used in the project. The structure remains basically the same for all tables, only the fields change.
 
+### Costumer endpoints
+
 ```http
 POST http://localhost:3333/clients/create - Create a new client/costumer
 ```
@@ -34,3 +36,25 @@ POST http://localhost:3333/clients/create - Create a new client/costumer
   "clientName": "Test Costumer",
   "clientEmail": "test@example.com"
 }
+```
+```http
+GET http://localhost:3333/clients/list-all - Return all clients/costumers
+```
+```json
+[
+    {
+        "clientId": "eaebe8bd-39b9-4934-a314-97c5a5bfca5e",
+        "clientCnpj": "33333034345054",
+        "clientName": "test client",
+        "clientEmail": "client@example.com",
+        "createdAt": "2024-09-18T00:41:46.655Z"
+    },
+    {
+        "clientId": "eaebe8bd-39b9-4934-a314-97c5a5bfca5e",
+        "clientCnpj": "33333034345054",
+        "clientName": "test client 2",
+        "clientEmail": "client2@example.com",
+        "createdAt": "2024-09-18T00:41:46.655Z"
+    }
+]
+```
