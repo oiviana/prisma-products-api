@@ -25,3 +25,9 @@ This is a backend project that I developed with the aim of deepening my concepts
 ![Screenshot_1](https://github.com/user-attachments/assets/4647eb75-15ec-438f-bade-f955e38436b9)
 
 - Finally, run the ```npm run dev``` command and your server is ready to go!
+
+## Postman API collection
+
+You can use the collection I created to query the api endpoints via Postman
+
+[Prisma Products API.postman_collection.json](https://github.com/user-attachments/files/17046812/Prisma.Products.API.postman_collection.json)
