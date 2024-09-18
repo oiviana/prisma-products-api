@@ -97,3 +97,5 @@ POST http://localhost:3333/order/create-items/:order-id - Add items to the order
 The objective of this session is to explain the structure and functionality of some folders and files essential to the project
 
 ### ./prisma
+```/schema.prisma``` is the file where the database structure is assembled
+```/migrations``` contains all files generated in the database migration and modification history
