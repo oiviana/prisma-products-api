@@ -11,6 +11,4 @@ addressRoutes.delete("/delete/:id", deleteAddress);
 
 addressRoutes.patch("/update/:id", updateAddress);
 
-// clientRoutes.get("/find-client/:id", findClient )
-
 export default addressRoutes;

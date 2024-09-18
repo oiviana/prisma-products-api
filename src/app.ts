@@ -17,7 +17,7 @@ app.use('/product', productRoutes)
 app.use('/stock', stockRoutes)
 app.use('/order', orderRoutes)
 
-app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
+app.use((err: unknown, _req: Request, res: Response) => {
     if (err instanceof Error) {
       console.error(err.stack);
       res.status(500).send('Algo deu errado!');
