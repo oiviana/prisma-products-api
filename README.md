@@ -31,3 +31,7 @@ This is a backend project that I developed with the aim of deepening my concepts
 You can use the collection I created to query the api endpoints via Postman
 
 [Prisma Products API Collection](https://github.com/user-attachments/files/17046812/Prisma.Products.API.postman_collection.json)
+
+## Project structure
+
+You can check the [project structure](./docs/project-structure.md), here!
