@@ -4,3 +4,16 @@ This is a backend project that I developed with the aim of deepening my concepts
 
 ![project_thumb](https://github.com/user-attachments/assets/7347a240-82c4-47ab-9cae-82fd540cb33b)
 
+## Requirements to run the project
+
+- [`NodeJS`](https://nodejs.org/pt)
+- [`Postman`](https://www.postman.com/downloads/)
+- [`Docker`](https://www.docker.com/products/docker-desktop/) 
+
+## How to run the project?
+
+- Clone the project into your machine
+- Run ```npm install``` at the root folder
+- With docker desktop open, run the command ```docker-compose up -d```
+- Check if the containers are running with the command ```docker ps```
+- ![Screenshot_5](https://github.com/user-attachments/assets/f4095e72-604b-436a-96e0-360312a1ad67)
