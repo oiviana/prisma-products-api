@@ -17,3 +17,7 @@ This project uses a relational database, which is ideal for this type of invento
 
 ### Database relationships
 - **Product - Stock:** each product has only one stock
+- **Client < Address:** each customer can have more than one address
+- **Client < Order:** each customer can have more than one orders
+- **Order < OrderItem:** each order can have more than one order items
+- **OrderItem - Product:** each order item is linked to a product
