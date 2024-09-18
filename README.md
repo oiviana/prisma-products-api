@@ -16,4 +16,4 @@ This is a backend project that I developed with the aim of deepening my concepts
 - Run ```npm install``` at the root folder
 - With docker desktop open, run the command ```docker-compose up -d```
 - Check if the containers are running with the command ```docker ps```
-- ![Screenshot_5](https://github.com/user-attachments/assets/f4095e72-604b-436a-96e0-360312a1ad67)
+![Screenshot_5](https://github.com/user-attachments/assets/f4095e72-604b-436a-96e0-360312a1ad67)
