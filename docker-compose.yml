@@ -27,9 +27,12 @@ services:
       - postgres
     networks:
       - my_network
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
 
 volumes:
   postgres-data:
+  pgadmin-data:
 
 networks:
   my_network:
