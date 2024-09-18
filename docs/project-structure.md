@@ -103,3 +103,9 @@ The objective of this session is to explain the structure and functionality of s
 ### ./src
 - ```app.ts```: Is the file where the the app is created organizing and consuming backend routes
 - ```server.ts```: That file starts the server running the app that was created in the file above
+
+### ./controllers
+- ```{model}Controler.ts```: That file contains all operations performed on the database table, corresponding to this model
+
+### ./routes 
+- ```{model}Routes.ts```: That file configures the routes, setting the endpoint and the respective function that will be performed, coming from the controller
