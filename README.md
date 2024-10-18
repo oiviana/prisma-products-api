@@ -19,10 +19,11 @@ This is a backend project that I developed with the aim of deepening my concepts
 
 ![Screenshot_5](https://github.com/user-attachments/assets/9ce3dd11-8c12-459a-8a6e-3d2157c0c766)
 
-- Prepare your database by running command ```npx prisma migrate dev```
 - Create a .env file at the root of the project defining the database connection address and the port on which the server will run
 
 ![Screenshot_1](https://github.com/user-attachments/assets/4647eb75-15ec-438f-bade-f955e38436b9)
+
+- Prepare your database by running command ```npx prisma migrate dev```
 
 - Finally, run the ```npm run dev``` command and your server is ready to go!
 
