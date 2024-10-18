@@ -25,7 +25,7 @@ export const createClient = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: `Erro ao cadastrar: ${error}` });
-  } finally {
+  } if (!res.headersSent) {
     await prisma.$disconnect();
   }
 };
@@ -35,6 +35,7 @@ export const listClients = async (_req: Request, res: Response) => {
   try {
     const clients = await prisma.client.findMany();
     res.json(clients);
+
   } catch (error) {
     res.status(500).json({ error: `Erro ao listar: ${error}` });
   } finally {
